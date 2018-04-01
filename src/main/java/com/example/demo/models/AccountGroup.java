@@ -1,12 +1,11 @@
 package com.example.demo.models;
 
-import com.example.demo.models.keys.AccountGroupId;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
@@ -14,7 +13,19 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccountGroup implements Serializable{
-    @EmbeddedId
-    private AccountGroupId accountGroupId;
-    private boolean isSubscribe;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    @JsonIgnoreProperties(value = "accounts")
+    private Group group;
+
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    @JsonIgnoreProperties(value = "groups")
+    private Account account;
+
+    private Boolean isSubscribe;
 }

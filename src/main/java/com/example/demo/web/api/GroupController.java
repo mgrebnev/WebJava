@@ -27,6 +27,6 @@ public class GroupController {
 
     @GetMapping("/groupAccountsById/{id}")
     public List<AccountGroup> getGroupAccountsById(@PathVariable("id") Integer id){
-        return accountGroupRepository.defaultFind(id);
+        return accountGroupRepository.findAccountGroupByGroupId(id);
     }
 }

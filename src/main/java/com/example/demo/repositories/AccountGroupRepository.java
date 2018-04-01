@@ -10,6 +10,5 @@ import java.util.List;
 
 @Repository
 public interface AccountGroupRepository extends JpaRepository<AccountGroup,Integer>{
-    @Query(value = "SELECT * FROM ACCOUNT_GROUP a WHERE a.GROUP_ID = :id",nativeQuery = true)
-    List<AccountGroup> defaultFind(@Param("id") Integer id);
+    List<AccountGroup> findAccountGroupByGroupId(Integer id);
 }

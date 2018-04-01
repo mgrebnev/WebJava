@@ -3,12 +3,12 @@ package com.example.demo.utils;
 import com.example.demo.models.Account;
 import com.example.demo.models.AccountGroup;
 import com.example.demo.models.Group;
-import com.example.demo.models.keys.AccountGroupId;
 import com.example.demo.repositories.AccountGroupRepository;
 import com.example.demo.repositories.AccountRepository;
 import com.example.demo.repositories.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 
@@ -21,22 +21,18 @@ public class DBRecordsInitializer {
     @Autowired
     private AccountGroupRepository accountGroupRepository;
 
+    @Transactional
     @PostConstruct
     public void checkCorrectWorkWithModels() {
-        Account account1 = new Account(null,"Maxim Grebnev");
-        Account account2 = new Account(null,"Petr Ivanov");
+        Account account1 = new Account(null,"Maxim Grebnev",null);
+        Account account2 = new Account(null,"Petr Ivanov",null);
         accountRepository.save(account1);
         accountRepository.save(account2);
 
-        Group group = new Group(null,"Devs");
+        Group group = new Group(null,"Devs",null);
         groupRepository.save(group);
 
-        AccountGroupId pk1 = new AccountGroupId(account1,group);
-        AccountGroupId pk2 = new AccountGroupId(account2,group);
-
-        AccountGroup accountGroup1 = new AccountGroup(pk1,true);
-        AccountGroup accountGroup2 = new AccountGroup(pk2,false);
-        accountGroupRepository.save(accountGroup1);
-        accountGroupRepository.save(accountGroup2);
+        accountGroupRepository.save(new AccountGroup(null,group,account1,true));
+        accountGroupRepository.save(new AccountGroup(null,group,account2,false));
     }
 }
