@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:hsqldb:hsql://localhost
+    username: sa
+    password:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+server:
+  port: 8080
